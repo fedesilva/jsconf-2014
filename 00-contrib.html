@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JsConf.uy 2014 - Underscore Contrib</title>
+
+    <script src="js/underscore.js" ></script>
+
+    <script src="js/underscore.array.builders.js" ></script>
+    <script src="js/underscore.array.selectors.js" ></script>
+    <script src="js/underscore.collections.walk.js"></script>
+    <script src="js/underscore.collections.walk.js"></script>
+    <script src="js/underscore.function.arity.js"></script>
+    <script src="js/underscore.function.combinators.js"></script>
+    <script src="js/underscore.function.dispatch.js"></script>
+    <script src="js/underscore.function.iterators.js"></script>
+    <script src="js/underscore.function.predicates.js"></script>
+    <script src="js/underscore.object.builders.js"></script>
+    <script src="js/underscore.object.selectors.js"></script>
+    <script src="js/underscore.util.existential.js"></script>
+    <script src="js/underscore.util.operators.js"></script>
+    <script src="js/underscore.util.strings.js"></script>
+    <script src="js/underscore.util.trampolines.js"></script>
+    <script src="js/people.js"></script>
+
+</head>
+<body>
+
+    <script>
+        "use strict";
+        var ages = _.pluck(people, "age");
+        var avg = _.reduce(ages, function(m, n){return m+n})/ages.length;
+    </script>
+
+</body>
+</html>

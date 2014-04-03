@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JsConf.uy 2014 - Underscore Contrib</title>
+
+    <script src="js/underscore.js" ></script>
+
+    <script src="js/underscore.array.builders.js" ></script>
+    <script src="js/underscore.array.selectors.js" ></script>
+    <script src="js/underscore.collections.walk.js"></script>
+    <script src="js/underscore.function.arity.js"></script>
+    <script src="js/underscore.function.combinators.js"></script>
+    <script src="js/underscore.function.dispatch.js"></script>
+    <script src="js/underscore.function.iterators.js"></script>
+    <script src="js/underscore.function.predicates.js"></script>
+    <script src="js/underscore.object.builders.js"></script>
+    <script src="js/underscore.object.selectors.js"></script>
+    <script src="js/underscore.util.existential.js"></script>
+    <script src="js/underscore.util.operators.js"></script>
+    <script src="js/underscore.util.strings.js"></script>
+    <script src="js/underscore.util.trampolines.js"></script>
+    <script src="js/people.js"></script>
+
+</head>
+<body>
+
+    <div id="root">
+        <h1>Say hi to _.walk!</h1>
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+        </ul>
+
+    </div>
+
+    <script>
+        "use strict";
+        _.walk.preorder(people,  function(value, key, parent){
+            console.log(key+ " " + value)
+        });
+    </script>
+
+    <script>
+        "use strict";
+        var positions = _.walk.map(people, _.walk.preorder, function(node, key) {
+            if(key === "position" ) return node;
+        });
+
+        // IMPROVE, WANT ALL THE PEOPLE
+        var rich = _.walk.filter(people, _.walk.preorder, function(node, key, parent){
+            if(key === "salary" && node > 150 ) return true;
+        });
+
+        var rich2 = _.walk.map(people, _.walk.preorder, function(node, key, parent){
+                if(key === "job" && node.salary > 150 ) return parent;
+        }).filter(_.exists);
+
+
+
+        // DOES NOT WORK
+//        var rich3 = _.walk.reduce(people, function(acc, node, key, parent){
+//            console.log(arguments.length);
+//            console.log(arguments);
+//            if(key === "job" && node.salary > 150 ) {
+//                return parent;
+//            } else {
+//                return acc;
+//            }
+//        }, []);
+
+        var isRich = function(node, key){if(key === "job" && node > 150 ) return true;};
+
+        var rich2 = _.walk.map(people, _.walk.preorder, function(node, key, parent){
+            if(key === "job" && node.salary > 150 ) return parent;
+        }).filter(_.exists);
+
+    </script>
+
+    <script>
+        "use strict";
+        var domW = _.walk(function(e) { return e.children; });
+
+        var lis = domW.filter(document.getElementById("root"), _.walk.preorder, function(e) {
+            return e.tagName === 'LI';
+        });
+
+    </script>
+
+</body>
+</html>

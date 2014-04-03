@@ -5,7 +5,8 @@
     <option name="OPEN_IN_BROWSER" value="true" />
     <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/exportToHTML" />
   </component>
-  <component name="ProjectRootManager" version="2" />
+  <component name="IdProvider" IDEtalkID="DD53A8DA46B7B480B9C9BF5F130B4395" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_3" assert-keyword="false" jdk-15="false" />
   <component name="SvnConfiguration">
     <option name="USER" value="" />
     <option name="PASSWORD" value="" />
