@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JsConf.uy 2014</title>
+
+    <script src="js/underscore.js" ></script>
+
+    <script src="js/underscore.array.builders.js" ></script>
+    <script src="js/underscore.array.selectors.js" ></script>
+    <script src="js/underscore.collections.walk.js"></script>
+    <script src="js/underscore.collections.walk.js"></script>
+    <script src="js/underscore.function.arity.js"></script>
+    <script src="js/underscore.function.combinators.js"></script>
+    <script src="js/underscore.function.dispatch.js"></script>
+    <script src="js/underscore.function.iterators.js"></script>
+    <script src="js/underscore.function.predicates.js"></script>
+    <script src="js/underscore.object.builders.js"></script>
+    <script src="js/underscore.object.selectors.js"></script>
+    <script src="js/underscore.util.existential.js"></script>
+    <script src="js/underscore.util.operators.js"></script>
+    <script src="js/underscore.util.strings.js"></script>
+    <script src="js/underscore.util.trampolines.js"></script>
+
+</head>
+<body>
+
+    <script>
+        // Ciudadanos de primera clase
+        var one = 1;
+        var fun1 = function () {
+            return 1;
+        };
+        var array = [one, fun1, function(){
+            console.log("I'm a citizen")
+        }];
+        console.log(fun1())
+    </script>
+
+    <script>
+        // Funciones de alto orden
+        var hof = function(fun, ary) {
+            for (var i=0; i < ary.length; i++) {
+                fun(ary[i]);
+            }
+        };
+        var printer = function(x) {
+            console.log(x);
+        };
+        var array = [1, 2, 3];
+        console.log(hof(printer, array));
+        // 1
+        // 2
+        // 3
+    </script>
+
+
+    <script>
+        // Transparencia referencial
+        var num = 2 * 2;
+        var mult = function(n1,n2) {
+            return n1*n2;
+        }
+        var num2 = mult(2,2);   // Remplazar num por num2 no cambia nada.
+    </script>
+
+
+
+    <script>
+        // Separación de efectos secundarios
+        // Reescribimos el ejemplo de funciones de alto orden
+
+        var transform = function(fun, ary) {
+            var result = [];
+            for (var i=0; i < ary.length; i++) {
+                result.push(fun(ary[i]));
+            }
+            return result;
+        };
+        var printer = function(x) {
+            console.log(x);
+        };
+        var double = function(a) {
+            return a*2;
+        };
+        var r = transform(double, [1,2,3]);
+        r.forEach(printer);
+        // 2
+        // 4
+        // 6
+    </script>
+
+    <script>
+        // Partial application
+        var mult = function(n1,n2) {
+            return n1*n2;
+        };
+        var double = _.partial(mult,2);
+        console.log(double(2));
+        // 4
+    </script>
+
+    <script>
+        // Function composition (and a combinator)
+        var doubled = _.map([1, 2, 3, 3, 4], double);
+        // [2, 4, 6, 6, 8]
+        var uniques = _.unique(doubled);
+        //  [2, 4, 6, 8]
+
+        var flippedMap = _.flip(_.map);
+        var doubleAndDedup = _.compose(_.partial(flippedMap,double), _.unique);
+
+        var uniques2 = doubleAndDedup( [1, 2, 3, 3, 4]);
+        // [2, 4, 6, 8]
+    </script>
+
+    <script>
+        // Predicates used with the map combinator
+        var isEven = function(n){ return n % 2 == 0; };
+        var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        var oddsAndEvens = _.map(numbers, isEven);
+        // [false, true, false, true, false, true, false, true, false, true]
+    </script>
+
+    <script>
+        // Other combinators
+        var isEven = function(n){ return n % 2 == 0; };
+        var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+        // Filter
+        var evens = _.filter(numbers, isEven);
+
+        // Reduce
+        var reduced = _.reduce(numbers, function(a,n){ return a+n  });
+        // 55
+
+x
+
+    </script>
+
+
+</body>
+</html>
